@@ -1,5 +1,6 @@
 import os
 import csv
+import datetime
 def write_to_file(file_name, data):
     """
     Записывает данные в отдельный файл.
@@ -7,7 +8,7 @@ def write_to_file(file_name, data):
     with open(file_name, 'w', newline='') as f:
         writer = csv.writer(f)
         writer.writerows(data)
-def split_csv(input_file):
+def split_csv_by_years(input_file):
     """
     Разбивает исходный csv файл на N файлов, где каждый отдельный файл будет соответствовать одному году.
     Записывает файлы в папку task2.
@@ -17,10 +18,15 @@ def split_csv(input_file):
         data = list(reader)
     years = set()
     for row in data:
-        date = row[0].split('-')[0]
-        years.add(date)
+        date_str = row[0]
+        date = datetime.datetime.strptime(date_str, '%Y-%m-%d')
+        years.add(date.year)
+    
     output_folder = 'task2'
     for year in years:
-        new_file_name = os.path.join(output_folder, f'{year}0101_{year}1231.csv')
-        filtered_data = [row for row in data if row[0].startswith(year)]
+        start_date = datetime.datetime(year, 1, 1).strftime('%Y%m%d')
+        end_date = datetime.datetime(year, 12, 31).strftime('%Y%m%d')
+        new_file_name = os.path.join(output_folder, f'{start_date}_{end_date}.csv')
+        
+        filtered_data = [row for row in data if datetime.datetime.strptime(row[0], '%Y-%m-%d').year == year]
         write_to_file(new_file_name, filtered_data)

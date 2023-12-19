@@ -1,23 +1,10 @@
-import os #библиотека подключена, чтобы файлы выводились в папку 
+import os 
 import csv
-def get_csv(input_file):
-    """
-    Получаем путь к папке, чтобы файлы X.csv и Y.csv записывались в папку и не терялись.
-    """
-    with open(input_file, 'r') as file:
-        reader = csv.reader(file)
-        data = list(reader)
-    num_rows = len(data)
-    output_folder = 'task1'
-    x_file = os.path.join(output_folder, "X.csv")
-    y_file = os.path.join(output_folder, "Y.csv")
 def split_csv(input_file):
     """
     Разбивает исходный csv файл на файлы X.csv и Y.csv с одинаковым количеством строк.
     Первый файл содержит даты, второй файл содержит данные.
-    input_file (str): Путь к исходному csv файлу.
     """
-    get_csv(input_file)
     with open(input_file, 'r') as file:
         reader = csv.reader(file)
         data = list(reader)

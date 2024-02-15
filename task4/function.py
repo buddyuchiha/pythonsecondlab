@@ -10,7 +10,7 @@ def get_info(my_date: datetime.date) -> str:
                     return (row[1]) + ' ' + (row[2]) + ' ' + (row[3]) + ' ' + (row[4]) + ' ' + (row[5]) + ' ' + (row[6])
                 if str(my_date) < str(row[0][0:10]):
                     return None
-print(get_info(datetime.date(2023,12,7)))
+# print(get_info(datetime.date(2023,12,7)))
 
 def get_info_XY(my_date: datetime.date) -> str:
     with open('task4/x.csv', 'r', encoding = "utf-8") as x, open('task4/y.csv', 'r', encoding="utf-8") as y:
@@ -27,7 +27,7 @@ def get_info_XY(my_date: datetime.date) -> str:
             if str(my_date) < str(row[0][0:10]):
                     return None
                 
-print(get_info_XY(datetime.date(2023,12,7)))
+# print(get_info_XY(datetime.date(2023,12,7)))
          
 
 def get_info_year(my_date: datetime.date) -> str:
@@ -39,11 +39,12 @@ def get_info_year(my_date: datetime.date) -> str:
             data = list(reader)
             result = ""
             for row in data:
-                result += row[1] + ' ' + row[2] + ' ' + row[3] + ' ' + row[4] + ' ' + row[5] + ' ' + row[6] + '\n'
+                if row[0] == my_date.strftime("%Y-%m-%d"):
+                    result += row[1] + ' ' + row[2] + ' ' + row[3] + ' ' + row[4] + ' ' + row[5] + ' ' + row[6] + '\n'
             return result
     except FileNotFoundError:
         return None
-# print(get_info_year(datetime.date(2008,12,7)))
+print(get_info_year(datetime.date(2008,12,7)))
 
 def get_info_week(my_date: datetime.date) -> str:
     my_week = my_date.weekday()
@@ -63,12 +64,13 @@ def get_info_week(my_date: datetime.date) -> str:
             data = list(reader)
             result = ""
             for row in data:
-                result += row[1] + ' ' + row[2] + ' ' + row[3] + ' ' + row[4] + ' ' + row[5] + ' ' + row[6] + '\n'
+                if row[0] == my_date.strftime("%Y-%m-%d"):
+                    result += row[1] + ' ' + row[2] + ' ' + row[3] + ' ' + row[4] + ' ' + row[5] + ' ' + row[6] + '\n'
             return result
     except FileNotFoundError:
         return None
     
-print(get_info_week(datetime.date(2023, 11, 16)))
+# print(get_info_week(datetime.date(2023, 11, 16)))
 
 
 
